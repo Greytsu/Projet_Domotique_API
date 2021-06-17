@@ -33,9 +33,10 @@ public class AppareilController {
     @GetMapping(path = "sample")
     public List<Appareil> getStudentsSample(){
         return List.of(
-                new Appareil(1, "test1", 1),
-                new Appareil(2, "test2", 1),
-                new Appareil(3, "test3", 1)
+                new Appareil(1, "ESP1", 1),
+                new Appareil(2, "ESP1", 1),
+                new Appareil(3, "ESP2", 2),
+                new Appareil(4, "ESP3", 3)
         );
     }
 }

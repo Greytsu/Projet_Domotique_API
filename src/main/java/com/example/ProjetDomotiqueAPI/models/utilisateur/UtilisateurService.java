@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UtilisateurService {
@@ -17,13 +18,11 @@ public class UtilisateurService {
     }
 
     public List<Utilisateur> findAllUsers(){
-        System.out.println("findAllUsers");
         return utilisateurRepository.findAll();
     }
 
-    public List<Utilisateur> findUserByUsername(String username){
-        var optUtilisateur =  utilisateurRepository.findByUsername(username);
-        return optUtilisateur.map(List::of).orElseGet(List::of);
+    public Optional<Utilisateur> findUserByUsername(String username){
+        return utilisateurRepository.findByUsername(username);
     }
 
 }

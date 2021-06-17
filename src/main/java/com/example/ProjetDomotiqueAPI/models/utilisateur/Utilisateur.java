@@ -16,6 +16,16 @@ public class Utilisateur {
     private String U_Password;
     private int TU_ID;
 
+    //CTOR--------------------------------------------------------------------------------------------------------------
+    public Utilisateur() {
+    }
+
+    public Utilisateur(String u_Login, String u_Password, int TU_ID) {
+        U_Login = u_Login;
+        U_Password = u_Password;
+        this.TU_ID = TU_ID;
+    }
+
     public Utilisateur(int u_ID, String u_Login, String u_Password, int TU_ID) {
         U_ID = u_ID;
         U_Login = u_Login;
@@ -23,9 +33,7 @@ public class Utilisateur {
         this.TU_ID = TU_ID;
     }
 
-    public Utilisateur() {
-    }
-
+    //GETTER------------------------------------------------------------------------------------------------------------
     @JsonProperty("U_ID")
     public int getU_ID() {
         return U_ID;

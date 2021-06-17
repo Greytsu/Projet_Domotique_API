@@ -1,6 +1,5 @@
 package com.example.ProjetDomotiqueAPI.models.utilisateur;
 
-import com.example.ProjetDomotiqueAPI.models.appareil.Appareil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +19,7 @@ public class UtilisateurController {
         this.utilisateurService = utilisateurService;
     }
 
+    //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping
     public List<Utilisateur> getAllUsers(){
         return utilisateurService.findAllUsers();
@@ -27,7 +27,8 @@ public class UtilisateurController {
 
     @GetMapping(path = "{username}")
     public List<Utilisateur> getUserByUsername(@PathVariable("username") String username){
-        return utilisateurService.findUserByUsername(username);
+        var optUtilisateur = utilisateurService.findUserByUsername(username);
+        return optUtilisateur.map(List::of).orElseGet(List::of);
     }
 
     @GetMapping(path = "sample")
@@ -39,5 +40,6 @@ public class UtilisateurController {
         );
     }
 
+    //POST--------------------------------------------------------------------------------------------------------------
 
 }
