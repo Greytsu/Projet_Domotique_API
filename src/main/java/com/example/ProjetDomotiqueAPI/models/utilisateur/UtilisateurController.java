@@ -1,15 +1,12 @@
 package com.example.ProjetDomotiqueAPI.models.utilisateur;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "ProjetDomotique/v1/utilisateur")
+@RequestMapping(path = "ProjetDomotique/admin/api/v1/utilisateur")
 public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
@@ -34,12 +31,16 @@ public class UtilisateurController {
     @GetMapping(path = "sample")
     public List<Utilisateur> getUsersSample(){
         return List.of(
-                new Utilisateur(1, "Olivier", "password", 1),
-                new Utilisateur(2, "Alain", "password", 1),
-                new Utilisateur(3, "Lucas", "password", 1)
+                new Utilisateur(1, "Olivier", "password", "Super Admin"),
+                new Utilisateur(2, "Alain", "password", "Admin"),
+                new Utilisateur(3, "Lucas", "password", "User")
         );
     }
 
     //POST--------------------------------------------------------------------------------------------------------------
 
+    @PostMapping
+    public boolean insertUser(@RequestBody Utilisateur user){
+        return true;
+    }
 }

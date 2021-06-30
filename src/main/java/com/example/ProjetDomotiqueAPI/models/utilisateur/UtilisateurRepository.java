@@ -21,7 +21,11 @@ private MySqlConnection sqlCon;
     }
 
     public List<Utilisateur> findAll(){
-        String queryUsers = "select * from Utilisateur";
+        String queryUsers =
+                """
+                    select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID = Utilisateur.TU_ID) as TU_Nom 
+                    from Utilisateur
+                    """;
         List<Utilisateur> utilisateurs = new ArrayList<>();
 
         try{
@@ -31,11 +35,11 @@ private MySqlConnection sqlCon;
                 if(results.isBeforeFirst()){
                     while(results.next()){
                         int U_ID = results.getInt("U_ID");
-                        int TU_ID = results.getInt("TU_ID");
+                        String TU_Nom = results.getString("TU_Nom");
                         String U_Login = results.getString("U_Login");
                         String U_Password = results.getString("U_Password");
 
-                        utilisateurs.add(new Utilisateur(U_ID, U_Login, U_Password, TU_ID));
+                        utilisateurs.add(new Utilisateur(U_ID, U_Login, U_Password, TU_Nom));
                     }
                 }
             }
@@ -50,7 +54,7 @@ private MySqlConnection sqlCon;
 
         String queryUser =
                 """ 
-                    select *
+                    select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID =  Utilisateur.TU_ID) as TU_Nom
                     from Utilisateur
                     where U_Login = ?""";
 
@@ -64,11 +68,11 @@ private MySqlConnection sqlCon;
                 if(results.isBeforeFirst()){
                     results.next();
                     int U_ID = results.getInt("U_ID");
-                    int TU_ID = results.getInt("TU_ID");
+                    String TU_Nom = results.getString("TU_Nom");
                     String U_Login = results.getString("U_Login");
                     String U_Password = results.getString("U_Password");
 
-                    return Optional.of(new Utilisateur(U_ID, U_Login, U_Password, TU_ID));
+                    return Optional.of(new Utilisateur(U_ID, U_Login, U_Password, TU_Nom));
                 }
             }
         } catch (SQLException throwables) {
@@ -77,4 +81,27 @@ private MySqlConnection sqlCon;
         return Optional.empty();
     }
 
+    public int updateUser(Utilisateur user){
+
+        String updateUserPrep =
+            """
+                update Utilisateur
+                set U_Login = ?, U_Password = ?, (select TU_ID from TypeUtilisateur where TU_Nom = ?)
+                where U_ID = ?""";
+
+        try {
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(updateUserPrep);
+            ps.setString(1, user.getU_Login());
+            ps.setString(2, user.getU_Password());
+            ps.setString(3, user.getTU_Nom());
+            ps.setInt(4, user.getU_ID());
+
+            return this.sqlCon.ExecPreparedDataManip(ps);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
 }
