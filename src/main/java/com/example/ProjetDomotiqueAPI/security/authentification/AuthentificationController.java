@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/ProjetDomotique/v1/authentification")
+@RequestMapping(value = "/ProjetDomotique/api/v1/authentification")
 public class AuthentificationController {
 
     @Autowired

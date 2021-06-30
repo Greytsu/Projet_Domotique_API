@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -26,7 +24,19 @@ public class MyUserDetailsService implements UserDetailsService {
         var optUtilisateur = utilisateurRepository.findByUsername(username);
         if(optUtilisateur.isPresent()){
             Utilisateur user = optUtilisateur.get();
-            return new User(user.getU_Login(), user.getU_Password(), new ArrayList<>());
+
+            System.out.println(user.getU_Login());
+            System.out.println(user.getRole());
+
+            UserDetails userDetails = User.builder()
+                    .username(user.getU_Login())
+                    .password(user.getU_Password())
+                    .roles(user.getRole().name())
+                    .authorities(user.getRole().getGrantedAuthorities())
+                    .build();
+
+            return userDetails;
+
         }
         throw new UsernameNotFoundException("Username not found : " + username);
     }
