@@ -25,9 +25,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if(optUtilisateur.isPresent()){
             Utilisateur user = optUtilisateur.get();
 
-            System.out.println(user.getU_Login());
-            System.out.println(user.getRole());
-
             UserDetails userDetails = User.builder()
                     .username(user.getU_Login())
                     .password(user.getU_Password())
