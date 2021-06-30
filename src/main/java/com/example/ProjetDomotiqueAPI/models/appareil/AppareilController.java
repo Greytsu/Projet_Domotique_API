@@ -1,16 +1,13 @@
 package com.example.ProjetDomotiqueAPI.models.appareil;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "ProjetDomotique/v1/appareil")
+@RequestMapping(path = "ProjetDomotique/api/v1/appareil")
 public class AppareilController {
 
     private final AppareilService appareilService;
@@ -21,12 +18,12 @@ public class AppareilController {
     }
 
     @GetMapping
-    public List<Appareil> getStudents(){
+    public List<Appareil> getDevices(){
         return appareilService.findAllDevices();
     }
 
     @GetMapping(path = "{AP_ID}")
-    public Optional<Appareil> getStudentsByID(@PathVariable("AP_ID") int AP_ID){
+    public Optional<Appareil> getDeviceById(@PathVariable("AP_ID") int AP_ID){
         return appareilService.findDeviceByID(AP_ID);
     }
 
@@ -38,5 +35,10 @@ public class AppareilController {
                 new Appareil(3, "ESP2", 2),
                 new Appareil(4, "ESP3", 3)
         );
+    }
+
+    @PostMapping
+    public boolean insertDevice(@RequestBody Appareil device){
+        return true;
     }
 }

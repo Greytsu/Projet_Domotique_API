@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "ProjetDomotique/v1/donnee")
+@RequestMapping(path = "ProjetDomotique/api/v1/donnee")
 public class DonneeController {
 
     private final DonneeService donneeService;
