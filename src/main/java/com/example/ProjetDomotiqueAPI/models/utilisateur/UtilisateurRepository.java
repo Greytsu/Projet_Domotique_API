@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public class UtilisateurRepository {
 
-private MySqlConnection sqlCon;
+    private MySqlConnection sqlCon;
 
     public UtilisateurRepository() {
         this.sqlCon = new MySqlConnection();
@@ -22,10 +22,9 @@ private MySqlConnection sqlCon;
 
     public List<Utilisateur> findAll(){
         String queryUsers =
-                """
-                    select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID = Utilisateur.TU_ID) as TU_Nom 
-                    from Utilisateur
-                    """;
+            """
+                select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID = Utilisateur.TU_ID) as TU_Nom 
+                from Utilisateur""";
         List<Utilisateur> utilisateurs = new ArrayList<>();
 
         try{
@@ -53,10 +52,10 @@ private MySqlConnection sqlCon;
     public Optional<Utilisateur> findByUsername(String username){
 
         String queryUser =
-                """ 
-                    select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID =  Utilisateur.TU_ID) as TU_Nom
-                    from Utilisateur
-                    where U_Login = ?""";
+            """ 
+                select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID =  Utilisateur.TU_ID) as TU_Nom
+                from Utilisateur
+                where U_Login = ?""";
 
         try {
             PreparedStatement ps = sqlCon.getCon().prepareStatement(queryUser);

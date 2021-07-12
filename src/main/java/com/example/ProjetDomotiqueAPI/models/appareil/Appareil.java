@@ -15,12 +15,14 @@ public class Appareil {
     private int AP_ID;
     private String AP_NOM;
     private int PI_ID;
+    private String AP_MAC;
 
     //CTOR--------------------------------------------------------------------------------------------------------------
-    public Appareil(int AP_ID, String AP_NOM, int PI_ID) {
+    public Appareil(int AP_ID, String AP_NOM, int PI_ID, String AP_MAC) {
         this.AP_ID = AP_ID;
         this.AP_NOM = AP_NOM;
         this.PI_ID = PI_ID;
+        this.AP_MAC = AP_MAC;
     }
 
     public Appareil() {
@@ -42,8 +44,8 @@ public class Appareil {
         return PI_ID;
     }
 
-    @JsonProperty("getTest")
-    public int getTest() {
-        return 123;
+    @JsonProperty("AP_MAC")
+    public String getAP_MAC() {
+        return AP_MAC;
     }
 }
