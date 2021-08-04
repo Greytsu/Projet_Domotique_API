@@ -1,11 +1,10 @@
 package com.example.ProjetDomotiqueAPI.models.piece;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "ProjetDomotique/api/v1/piece")
@@ -24,9 +23,9 @@ public class PieceController {
         return pieceService.findAllRooms();
     }
 
-    @GetMapping(path = "{pieceID}")
-    public List<Piece> getRoomById(){
-        return pieceService.findRoomById();
+    @GetMapping(path = "{PI_ID}")
+    public Optional<Piece> getRoomById(@PathVariable("PI_ID") int PI_ID){
+        return pieceService.findRoomById(PI_ID);
     }
 
     @GetMapping(path = "sample")
@@ -39,4 +38,8 @@ public class PieceController {
     }
 
     //POST--------------------------------------------------------------------------------------------------------------
+    @PostMapping
+    public boolean postRoom(@RequestBody Piece piece){
+        return pieceService.insertRoom(piece) > 0;
+    }
 }

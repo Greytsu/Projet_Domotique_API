@@ -1,17 +1,30 @@
 package com.example.ProjetDomotiqueAPI.models.piece;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PieceService {
 
-    public List<Piece> findAllRooms(){
-        return List.of();
+    private PieceRepository pieceRepository;
+
+    @Autowired
+    public PieceService(PieceRepository pieceRepository) {
+        this.pieceRepository = pieceRepository;
     }
 
-    public List<Piece> findRoomById(){
-        return List.of();
+    public List<Piece> findAllRooms(){
+        return pieceRepository.findAllRooms();
+    }
+
+    public Optional<Piece> findRoomById(int PI_ID){
+        return pieceRepository.findRoomByID(PI_ID);
+    }
+
+    public int insertRoom(Piece piece){
+        return pieceRepository.insertRoom(piece);
     }
 }

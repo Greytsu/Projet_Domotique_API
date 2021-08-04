@@ -46,4 +46,16 @@ public class Piece {
     public int getTP_ID() {
         return TP_ID;
     }
+
+    public void setPI_ID(int PI_ID) {
+        this.PI_ID = PI_ID;
+    }
+
+    public void setPI_Nom(String PI_Nom) {
+        this.PI_Nom = PI_Nom;
+    }
+
+    public void setTP_ID(int TP_ID) {
+        this.TP_ID = TP_ID;
+    }
 }
