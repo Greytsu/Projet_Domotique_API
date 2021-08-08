@@ -24,4 +24,17 @@ public class UtilisateurService {
         return utilisateurRepository.findByUsername(username);
     }
 
+    public int createUser(Utilisateur user){
+
+        if (findUserByUsername(user.getU_Login()).isPresent())
+            return 0;
+
+        if (findAllUsers().size() == 0)
+            user.setTU_Nom("SUPER_ADMIN");
+        else
+            user.setTU_Nom("USER");
+
+        return utilisateurRepository.insertUser(user);
+    }
+
 }

@@ -41,6 +41,6 @@ public class UtilisateurController {
 
     @PostMapping
     public boolean insertUser(@RequestBody Utilisateur user){
-        return true;
+        return utilisateurService.createUser(user) > 0;
     }
 }

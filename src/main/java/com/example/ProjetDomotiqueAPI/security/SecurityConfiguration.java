@@ -46,9 +46,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/ProjetDomotique/api/v1/authentification/**").permitAll()
 
                 //utilisateur
-                .antMatchers("/ProjetDomotique/admin/**").hasAnyRole(SUPER_ADMIN.name(),ADMIN.name())
-                .antMatchers(HttpMethod.GET, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_READ.getPermissions())
-                .antMatchers(HttpMethod.POST, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                //.antMatchers("/ProjetDomotique/admin/**").hasAnyRole(SUPER_ADMIN.name(),ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                //.antMatchers(HttpMethod.POST, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                .antMatchers(HttpMethod.POST, "/ProjetDomotique/admin/api/v1/utilisateur/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
                 .antMatchers(HttpMethod.DELETE, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
 

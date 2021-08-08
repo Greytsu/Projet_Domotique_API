@@ -42,52 +42,60 @@ public class Utilisateur {
         setRole();
     }
 
+    //Methods-----------------------------------------------------------------------------------------------------------
+    public void setDefaultUserType(){
+        setTU_Nom("USER");
+    }
+
     //GETTER------------------------------------------------------------------------------------------------------------
-    @JsonProperty("U_ID")
+    @JsonProperty("id")
     public int getU_ID() {
         return U_ID;
     }
 
-    @JsonProperty("U_Login")
+    @JsonProperty("login")
     public String getU_Login() {
         return U_Login;
     }
 
-    @JsonProperty("U_Password")
+    @JsonProperty("password")
     public String getU_Password() {
         return U_Password;
     }
 
-    @JsonProperty("TU_Nom")
+    @JsonProperty("user_type")
     public String getTU_Nom() {
         return TU_Nom;
     }
 
-    @JsonProperty("Role")
+    @JsonProperty("role")
     public ApplicationUserRole getRole() {
         return role;
     }
 
-    @JsonProperty("Autorisations")
+    @JsonProperty("authorizations")
     public List<Autorisation> getAutorisations() {
         return AutorisationController.getAutorisationsSample();
     }
 
     //SETTER------------------------------------------------------------------------------------------------------------
 
-
+    @JsonProperty("id")
     public void setU_ID(Integer u_ID) {
         U_ID = u_ID;
     }
 
+    @JsonProperty("login")
     public void setU_Login(String u_Login) {
         U_Login = u_Login;
     }
 
+    @JsonProperty("password")
     public void setU_Password(String u_Password) {
         U_Password = u_Password;
     }
 
+    @JsonProperty("user_type")
     public void setTU_Nom(String TU_Nom) {
         this.TU_Nom = TU_Nom;
         setRole();

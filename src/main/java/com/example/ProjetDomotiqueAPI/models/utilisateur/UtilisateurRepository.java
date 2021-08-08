@@ -1,6 +1,8 @@
 package com.example.ProjetDomotiqueAPI.models.utilisateur;
 
 import com.example.ProjetDomotiqueAPI.database.MySqlConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -15,9 +17,12 @@ import java.util.Optional;
 public class UtilisateurRepository {
 
     private MySqlConnection sqlCon;
+    private final PasswordEncoder passwordEncoder;
 
-    public UtilisateurRepository() {
+    @Autowired
+    public UtilisateurRepository(PasswordEncoder passwordEncoder) {
         this.sqlCon = new MySqlConnection();
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Utilisateur> findAll(){
@@ -78,6 +83,32 @@ public class UtilisateurRepository {
             throwables.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public int insertUser(Utilisateur user){
+
+        String insertUserPrep =
+            """
+                insert into Utilisateur
+                (U_Login, U_Password, TU_ID)
+                values (?, ?, (select TU_ID from TypeUtilisateur where TU_Nom = ?))""";
+
+        try {
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(insertUserPrep);
+            ps.setString(1, user.getU_Login());
+            ps.setString(2, passwordEncoder.encode(user.getU_Password()));
+            ps.setString(3, user.getTU_Nom());
+
+            System.out.println(ps);
+
+            return this.sqlCon.ExecPreparedDataManip(ps);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+
     }
 
     public int updateUser(Utilisateur user){
