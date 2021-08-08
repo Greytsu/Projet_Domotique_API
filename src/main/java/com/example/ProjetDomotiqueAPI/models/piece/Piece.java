@@ -1,10 +1,15 @@
 package com.example.ProjetDomotiqueAPI.models.piece;
 
+import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReference;
+import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReferenceController;
+import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReferenceRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -32,20 +37,29 @@ public class Piece {
 
     //Getter------------------------------------------------------------------------------------------------------------
 
-    @JsonProperty("PI_ID")
+    @JsonProperty("id")
     public int getPI_ID() {
         return PI_ID;
     }
 
-    @JsonProperty("PI_Nom")
+    @JsonProperty("name")
     public String getPI_Nom() {
         return PI_Nom;
     }
 
-    @JsonProperty("TP_ID")
+    @JsonProperty("room_type")
     public int getTP_ID() {
         return TP_ID;
     }
+
+    @JsonProperty("references")
+    public List<DonneeReference> getReferences() {
+
+        DonneeReferenceRepository donneeReferenceRepository = new DonneeReferenceRepository();
+
+        return donneeReferenceRepository.findReferencesByRoomId(this.PI_ID);
+    }
+
 
     public void setPI_ID(int PI_ID) {
         this.PI_ID = PI_ID;

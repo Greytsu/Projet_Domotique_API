@@ -2,6 +2,7 @@ package com.example.ProjetDomotiqueAPI.models.donneeReference;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +21,13 @@ public class DonneeReferenceController {
 
     //GET---------------------------------------------------------------------------------------------------------------
 
+    @GetMapping(path = "{PI_ID}")
+    public List<DonneeReference> getRoomReferences(@PathVariable("PI_ID") int PI_ID){
+        return donneeReferenceService.findReferencesByRoomId(PI_ID);
+    }
+
     @GetMapping(path = "sample")
-    public List<DonneeReference> getUsersSample(){
+    public static List<DonneeReference> getReferencesSample(){
         return List.of(
                 new DonneeReference(1, 23.5f, 1, 1),
                 new DonneeReference(2, 75, 1, 2),
@@ -31,6 +37,8 @@ public class DonneeReferenceController {
                 new DonneeReference(6, 77, 3, 2)
         );
     }
+
+
 
     //POST--------------------------------------------------------------------------------------------------------------
 
