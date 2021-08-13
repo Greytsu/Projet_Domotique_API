@@ -23,9 +23,9 @@ public class UtilisateurController {
     }
 
     @GetMapping(path = "{username}")
-    public List<Utilisateur> getUserByUsername(@PathVariable("username") String username){
+    public Utilisateur getUserByUsername(@PathVariable("username") String username){
         var optUtilisateur = utilisateurService.findUserByUsername(username);
-        return optUtilisateur.map(List::of).orElseGet(List::of);
+        return optUtilisateur.isPresent()? optUtilisateur.get() : null;
     }
 
     @GetMapping(path = "sample")
