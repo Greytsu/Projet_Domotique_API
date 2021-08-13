@@ -1,5 +1,6 @@
 package com.example.ProjetDomotiqueAPI.models.donneeReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
@@ -33,6 +34,8 @@ public class DonneeReference {
         this.TD_ID = TD_ID;
     }
 
+    @JsonIgnore
+    @JsonProperty("valid")
     public boolean isValid(){
         if (this.DR_Valeur < 0)
             return false;
