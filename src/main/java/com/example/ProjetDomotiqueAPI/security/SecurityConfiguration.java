@@ -46,12 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/ProjetDomotique/api/v1/authentification/**").permitAll()
 
                 //utilisateur
-                //.antMatchers("/ProjetDomotique/admin/**").hasAnyRole(SUPER_ADMIN.name(),ADMIN.name())
-                .antMatchers(HttpMethod.GET, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
-                //.antMatchers(HttpMethod.POST, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
-                .antMatchers(HttpMethod.POST, "/ProjetDomotique/admin/api/v1/utilisateur/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
-                .antMatchers(HttpMethod.DELETE, "/ProjetDomotique/admin/api/v1/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                //.antMatchers("/ProjetDomotique/api/v1/admin/**").hasAnyRole(SUPER_ADMIN.name(),ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                //.antMatchers(HttpMethod.POST, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                .antMatchers(HttpMethod.POST, "/ProjetDomotique/api/v1/admin/utilisateur/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
+                .antMatchers(HttpMethod.DELETE, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
 
                 //appareil
                 .antMatchers(HttpMethod.GET, "/ProjetDomotique/api/v1/appareil/**").hasAnyAuthority(APPAREIL_READ.getPermissions())

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "ProjetDomotique/admin/api/v1/utilisateur")
+@RequestMapping(path = "ProjetDomotique/api/v1/admin/utilisateur")
 public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
