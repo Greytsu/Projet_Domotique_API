@@ -25,9 +25,8 @@ public class AppareilService {
         return appareilRepository.findDeviceByID(AP_ID);
     }
 
-    public List<Appareil> updateDeviceById(){
-        return appareilRepository.findAllDevices();
+    public int updateDevice(Appareil device){
+        return appareilRepository.updateDevice(device);
     }
-
 
 }

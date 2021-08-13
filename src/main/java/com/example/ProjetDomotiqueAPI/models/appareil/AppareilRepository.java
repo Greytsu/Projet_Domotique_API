@@ -81,4 +81,28 @@ public class AppareilRepository {
         return Optional.empty();
     }
 
+    public int updateDevice(Appareil device){
+
+        String updateDevice =
+                """
+                    update Appareil
+                    set AP_Nom = ?, PI_ID = ?
+                    where AP_ID = ?""";
+
+        try {
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(updateDevice);
+            ps.setString(1, device.getAP_NOM());
+            ps.setInt(2, device.getPI_ID());
+            ps.setInt(3, device.getAP_ID());
+
+            return this.sqlCon.ExecPreparedDataManip(ps);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
 }

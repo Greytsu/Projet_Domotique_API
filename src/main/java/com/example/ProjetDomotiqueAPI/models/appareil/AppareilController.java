@@ -23,6 +23,7 @@ public class AppareilController {
     }
 
 
+    //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping(path = "{AP_ID}")
     public List<Appareil> getDeviceById(@PathVariable("AP_ID") int AP_ID){
         var optDevice = appareilService.findDeviceByID(AP_ID);
@@ -30,7 +31,7 @@ public class AppareilController {
     }
 
     @GetMapping(path = "sample")
-    public List<Appareil> getStudentsSample(){
+    public List<Appareil> getDeviceSample(){
         return List.of(
                 new Appareil(1, "ESP1", 1, "ac:67:b2:36:39:23"),
                 new Appareil(2, "ESP1", 1, "ac:67:b2:36:39:24"),
@@ -39,8 +40,12 @@ public class AppareilController {
         );
     }
 
-    @PostMapping
-    public boolean insertDevice(@RequestBody Appareil device){
-        return true;
+    //POST--------------------------------------------------------------------------------------------------------------
+    @PutMapping
+    public boolean modifyDevice(@RequestBody Appareil device){
+        return appareilService.updateDevice(device) > 0;
     }
+
+    //PUT---------------------------------------------------------------------------------------------------------------
+
 }
