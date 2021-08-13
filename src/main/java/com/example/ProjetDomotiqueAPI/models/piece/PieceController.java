@@ -38,9 +38,9 @@ public class PieceController {
         );
     }
 
-    //POST--------------------------------------------------------------------------------------------------------------
-    @PostMapping
-    public boolean postRoom(@RequestBody Piece piece){
-        return pieceService.insertRoom(piece) > 0;
+    //PUT---------------------------------------------------------------------------------------------------------------
+    @PutMapping
+    public boolean putRoom(@RequestBody Piece piece){
+        return pieceService.updateRoom(piece) > 0;
     }
 }

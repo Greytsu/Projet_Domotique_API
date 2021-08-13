@@ -76,21 +76,19 @@ public class PieceRepository {
         return Optional.empty();
     }
 
-    public int insertRoom(Piece piece){
+    public int updateRoom(Piece room) {
 
-        System.out.println(piece.getPI_Nom());
-        System.out.println(piece.getTP_ID());
-
-
-        String insertRoom =
-            """
-                insert into Piece
-                set PI_Nom = ?, TP_ID = ?""";
+        String updateRoom =
+                """
+                    update Piece
+                    set PI_Nom = ?, TP_ID = ?
+                    where PI_ID = ?""";
 
         try {
-            PreparedStatement ps = sqlCon.getCon().prepareStatement(insertRoom);
-            ps.setString(1, piece.getPI_Nom());
-            ps.setInt(2, piece.getTP_ID());
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(updateRoom);
+            ps.setString(1, room.getPI_Nom());
+            ps.setInt(2, room.getTP_ID());
+            ps.setInt(3, room.getPI_ID());
 
             return this.sqlCon.ExecPreparedDataManip(ps);
 
@@ -99,5 +97,6 @@ public class PieceRepository {
         }
 
         return 0;
+
     }
 }

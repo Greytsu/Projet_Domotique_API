@@ -24,7 +24,8 @@ public class PieceService {
         return pieceRepository.findRoomByID(PI_ID);
     }
 
-    public int insertRoom(Piece piece){
-        return pieceRepository.insertRoom(piece);
+    public int updateRoom(Piece room){
+        return pieceRepository.updateRoom(room);
     }
+
 }
