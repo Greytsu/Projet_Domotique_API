@@ -51,4 +51,48 @@ public class DonneeReferenceRepository {
         return donneeReferences;
     }
 
+    public int insertReference(DonneeReference donneeReference){
+
+        String insertReference =
+                """
+                    insert into DonneeReference
+                    (DR_Valeur, PI_ID, TD_ID)
+                    values(?, ?, ?)""";
+
+        try {
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(insertReference);
+            ps.setFloat(1, donneeReference.getDR_Valeur());
+            ps.setInt(2, donneeReference.getPI_ID());
+            ps.setInt(3, donneeReference.getTD_ID());
+
+            return this.sqlCon.ExecPreparedDataManip(ps);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+    public int deleteReferences(int TD_ID, int PI_ID){
+        String deleteReferences =
+                """
+                    delete from DonneeReference
+                    where TD_ID = ? and PI_ID = ?""";
+
+        try {
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(deleteReferences);
+            ps.setInt(1, TD_ID);
+            ps.setInt(2, PI_ID);
+
+            return this.sqlCon.ExecPreparedDataManip(ps);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
 }

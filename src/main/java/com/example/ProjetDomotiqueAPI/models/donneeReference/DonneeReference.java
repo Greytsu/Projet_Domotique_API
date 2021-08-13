@@ -33,6 +33,16 @@ public class DonneeReference {
         this.TD_ID = TD_ID;
     }
 
+    public boolean isValid(){
+        if (this.DR_Valeur < 0)
+            return false;
+        if (this.PI_ID <= 0)
+            return false;
+        if (this.TD_ID <= 0)
+            return false;
+        return true;
+    }
+
     //GETTER------------------------------------------------------------------------------------------------------------
     @JsonProperty("id")
     public int getDR_ID() {
@@ -52,5 +62,26 @@ public class DonneeReference {
     @JsonProperty("data_type_id")
     public int getTD_ID() {
         return TD_ID;
+    }
+
+    //SETTER------------------------------------------------------------------------------------------------------------
+    @JsonProperty("id")
+    public void setDR_ID(int DR_ID) {
+        this.DR_ID = DR_ID;
+    }
+
+    @JsonProperty("value")
+    public void setDR_Valeur(float DR_Valeur) {
+        this.DR_Valeur = DR_Valeur;
+    }
+
+    @JsonProperty("room_id")
+    public void setPI_ID(int PI_ID) {
+        this.PI_ID = PI_ID;
+    }
+
+    @JsonProperty("data_type_id")
+    public void setTD_ID(int TD_ID) {
+        this.TD_ID = TD_ID;
     }
 }

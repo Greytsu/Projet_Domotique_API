@@ -23,8 +23,8 @@ public class DonneeController {
     //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping
     public List<Donnee> getDonnees(@RequestParam(defaultValue = "0", name = "after") String after,
-                                   @RequestParam(defaultValue = "", name = "device") List<String> deviceIds,
-                                   @RequestParam(defaultValue = "", name = "room") List<String> roomIds){
+                                   @RequestParam(defaultValue = "", name = "devices") List<String> deviceIds,
+                                   @RequestParam(defaultValue = "", name = "rooms") List<String> roomIds){
 
         return donneeService.getDonneesAfter(after, deviceIds, roomIds);
     }
@@ -43,5 +43,4 @@ public class DonneeController {
         );
     }
 
-    //POST--------------------------------------------------------------------------------------------------------------
 }

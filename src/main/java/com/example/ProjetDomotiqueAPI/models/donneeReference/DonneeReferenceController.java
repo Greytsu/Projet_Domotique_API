@@ -1,10 +1,7 @@
 package com.example.ProjetDomotiqueAPI.models.donneeReference;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,8 +35,22 @@ public class DonneeReferenceController {
         );
     }
 
-
-
     //POST--------------------------------------------------------------------------------------------------------------
+    @PostMapping
+    public boolean newReference(@RequestBody DonneeReference donneeReference){
+        if(donneeReference.isValid())
+            deleteReference(donneeReference.getTD_ID(), donneeReference.getPI_ID());
+        return donneeReferenceService.insertReference(donneeReference) > 0;
+    }
+
+    @DeleteMapping
+    public boolean deleteReference(@RequestParam(defaultValue = "0", name = "type") int TD_ID,
+                                   @RequestParam(defaultValue = "0", name = "room") int PI_ID){
+        if(TD_ID > 0 && PI_ID > 0)
+            return donneeReferenceService.deleteReferences(TD_ID, PI_ID) > 0;
+
+        return false;
+    }
+
 
 }
