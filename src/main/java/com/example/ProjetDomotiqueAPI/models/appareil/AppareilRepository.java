@@ -1,7 +1,6 @@
 package com.example.ProjetDomotiqueAPI.models.appareil;
 
 import com.example.ProjetDomotiqueAPI.database.MySqlConnection;
-import com.example.ProjetDomotiqueAPI.models.utilisateur.Utilisateur;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
