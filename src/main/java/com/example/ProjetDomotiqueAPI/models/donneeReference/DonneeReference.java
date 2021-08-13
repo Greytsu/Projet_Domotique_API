@@ -34,22 +34,22 @@ public class DonneeReference {
     }
 
     //GETTER------------------------------------------------------------------------------------------------------------
-    @JsonProperty("DR_ID")
+    @JsonProperty("id")
     public int getDR_ID() {
         return DR_ID;
     }
 
-    @JsonProperty("DR_Valeur")
+    @JsonProperty("value")
     public float getDR_Valeur() {
         return DR_Valeur;
     }
 
-    @JsonProperty("PI_ID")
+    @JsonProperty("room_id")
     public int getPI_ID() {
         return PI_ID;
     }
 
-    @JsonProperty("TD_ID")
+    @JsonProperty("data_type_id")
     public int getTD_ID() {
         return TD_ID;
     }

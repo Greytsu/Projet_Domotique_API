@@ -50,10 +50,13 @@ public class DonneeRepository {
 
             if(roomIds.size() > 0){
                 String result = roomIds.stream().collect(Collectors.joining(","));
-                ps.setString(2,result);
-            }
+                if(deviceIds.size() > 0){
+                    ps.setString(3,result);
+                }else{
+                    ps.setString(2,result);
+                }
 
-            System.out.println(ps);
+            }
 
             var optResults = this.sqlCon.ExecPreparedQuery(ps);
             if(optResults.isPresent()){

@@ -25,8 +25,7 @@ public class DonneeController {
     public List<Donnee> getDonnees(@RequestParam(defaultValue = "0", name = "after") String after,
                                    @RequestParam(defaultValue = "", name = "device") List<String> deviceIds,
                                    @RequestParam(defaultValue = "", name = "room") List<String> roomIds){
-        System.out.println(after);
-        System.out.println(deviceIds);
+
         return donneeService.getDonneesAfter(after, deviceIds, roomIds);
     }
 
