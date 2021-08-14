@@ -103,21 +103,18 @@ public class Utilisateur {
     }
 
     private void setRole(){
-        switch(this.TU_Nom){
-            case "SUPER_ADMIN" :
-                this.role = SUPER_ADMIN;
-                break;
-            case "ADMIN" :
-                this.role = ADMIN;
-                break;
 
-            case "USER" :
-                this.role = USER;
-                break;
+        this.role = null;
 
-            default :
-                this.role = CONSULTANT;
-        }
+        if(this.TU_Nom.equals("SUPER_ADMIN"))
+            this.role = SUPER_ADMIN;
+        if(this.TU_Nom.equals("ADMIN"))
+            this.role = ADMIN;
+        if(this.TU_Nom.equals("USER"))
+            this.role = USER;
+        if(this.role == null)
+            this.role = CONSULTANT;
+
     }
 
     @Override
