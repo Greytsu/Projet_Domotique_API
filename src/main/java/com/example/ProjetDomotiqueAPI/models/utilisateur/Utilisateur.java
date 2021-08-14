@@ -3,6 +3,7 @@ package com.example.ProjetDomotiqueAPI.models.utilisateur;
 import com.example.ProjetDomotiqueAPI.models.autorisation.Autorisation;
 import com.example.ProjetDomotiqueAPI.models.autorisation.AutorisationController;
 import com.example.ProjetDomotiqueAPI.security.ApplicationUserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
@@ -68,6 +69,7 @@ public class Utilisateur {
         return TU_Nom;
     }
 
+    @JsonIgnore
     @JsonProperty("role")
     public ApplicationUserRole getRole() {
         return role;
@@ -79,7 +81,6 @@ public class Utilisateur {
     }
 
     //SETTER------------------------------------------------------------------------------------------------------------
-
     @JsonProperty("id")
     public void setU_ID(Integer u_ID) {
         U_ID = u_ID;

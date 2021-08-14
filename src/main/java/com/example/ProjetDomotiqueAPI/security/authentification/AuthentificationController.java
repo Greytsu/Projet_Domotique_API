@@ -1,5 +1,7 @@
 package com.example.ProjetDomotiqueAPI.security.authentification;
 
+import com.example.ProjetDomotiqueAPI.models.utilisateur.Utilisateur;
+import com.example.ProjetDomotiqueAPI.models.utilisateur.UtilisateurService;
 import com.example.ProjetDomotiqueAPI.security.MyUserDetailsService;
 import com.example.ProjetDomotiqueAPI.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public class AuthentificationController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    @Autowired
+    private UtilisateurService utilisateurService;
+
+
     @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthentificationReq authenticationRequest) throws Exception{
         try {
@@ -32,11 +38,13 @@ public class AuthentificationController {
             throw new Exception("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        String username = authenticationRequest.getUsername();
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthentificationRep(jwt));
+        return ResponseEntity.ok(new AuthentificationRep(jwt, utilisateurService.findUserByUsername(username).orElse(null)));
     }
 
     @GetMapping
