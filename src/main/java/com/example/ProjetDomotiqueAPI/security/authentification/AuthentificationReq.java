@@ -1,23 +1,23 @@
 package com.example.ProjetDomotiqueAPI.security.authentification;
 
 public class AuthentificationReq {
-    private String username;
+    private String login;
     private String password;
 
     public AuthentificationReq() {
     }
 
-    public AuthentificationReq(String username, String password) {
-        this.username = username;
+    public AuthentificationReq(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

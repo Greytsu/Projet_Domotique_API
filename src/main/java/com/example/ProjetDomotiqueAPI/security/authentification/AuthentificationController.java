@@ -31,14 +31,15 @@ public class AuthentificationController {
 
     @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthentificationReq authenticationRequest) throws Exception{
+
         try {
-            authManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+            authManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getLogin(), authenticationRequest.getPassword()));
         }
         catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
 
-        String username = authenticationRequest.getUsername();
+        String username = authenticationRequest.getLogin();
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
