@@ -99,4 +99,27 @@ public class PieceRepository {
         return 0;
 
     }
+
+    public int insertRoom(Piece room){
+
+        String insertRoom =
+                """
+                    insert into Piece
+                    (PI_Nom, TP_ID)
+                    values(?, ?)""";
+
+        try {
+            PreparedStatement ps = sqlCon.getCon().prepareStatement(insertRoom);
+            ps.setString(1, room.getPI_Nom());
+            ps.setInt(2, room.getTP_ID());
+
+            return this.sqlCon.ExecPreparedDataManip(ps);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+
+    }
 }

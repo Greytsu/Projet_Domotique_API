@@ -1,6 +1,5 @@
 package com.example.ProjetDomotiqueAPI.models.piece;
 
-import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReferenceController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +35,12 @@ public class PieceController {
                 new Piece(2, "Bureau Lucas", 1),
                 new Piece(3, "Bureau Alain", 1)
         );
+    }
+
+    //POST--------------------------------------------------------------------------------------------------------------
+    @PostMapping
+    public boolean postPiece(@RequestBody Piece piece){
+        return pieceService.insertRoom(piece) > 0;
     }
 
     //PUT---------------------------------------------------------------------------------------------------------------
