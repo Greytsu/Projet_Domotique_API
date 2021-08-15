@@ -18,4 +18,8 @@ public class DonneeService {
     public List<Donnee> getDonneesAfter(String after, List<String> deviceIds, List<String> roomIds){
         return donneeRepository.getDonneesAfter(after, deviceIds, roomIds);
     }
+
+    public List<Donnee> getLastDatas(int PI_ID){
+        return donneeRepository.getLastDatas(PI_ID);
+    }
 }
