@@ -1,6 +1,5 @@
 package com.example.ProjetDomotiqueAPI.security.authentification;
 
-import com.example.ProjetDomotiqueAPI.models.utilisateur.Utilisateur;
 import com.example.ProjetDomotiqueAPI.models.utilisateur.UtilisateurService;
 import com.example.ProjetDomotiqueAPI.security.MyUserDetailsService;
 import com.example.ProjetDomotiqueAPI.util.JwtUtil;

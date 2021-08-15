@@ -100,7 +100,7 @@ public class PieceRepository {
 
     }
 
-    public int insertRoom(Piece room){
+    public Piece insertRoom(Piece room){
 
         String insertRoom =
                 """
@@ -113,13 +113,42 @@ public class PieceRepository {
             ps.setString(1, room.getPI_Nom());
             ps.setInt(2, room.getTP_ID());
 
-            return this.sqlCon.ExecPreparedDataManip(ps);
+            sqlCon.ExecPreparedDataManip(ps);
+            return findLastRoom();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return 0;
+        return null;
 
+    }
+
+    public Piece findLastRoom(){
+        Piece result = null;
+        String queryRooms =
+            """
+                select PI_ID, PI_Nom, TP_ID
+                from Piece
+                order by PI_ID desc
+                LIMIT 1""";
+
+        try{
+            var optResults = this.sqlCon.ExecQuery(queryRooms);
+            if(optResults.isPresent()){
+                ResultSet results = optResults.get();
+                if(results.isBeforeFirst()){
+                    results.next();
+                    int PI_ID = results.getInt("PI_ID");
+                    String PI_Nom = results.getString("PI_Nom");
+                    int TP_ID = results.getInt("TP_ID");
+
+                    result = new Piece(PI_ID, PI_Nom, TP_ID);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
 }

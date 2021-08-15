@@ -28,7 +28,7 @@ public class PieceService {
         return pieceRepository.updateRoom(room);
     }
 
-    public int insertRoom(Piece room){
+    public Piece insertRoom(Piece room){
         return pieceRepository.insertRoom(room);
     }
 

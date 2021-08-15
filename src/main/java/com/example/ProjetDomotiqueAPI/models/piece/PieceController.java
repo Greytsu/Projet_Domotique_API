@@ -51,8 +51,8 @@ public class PieceController {
 
     //POST--------------------------------------------------------------------------------------------------------------
     @PostMapping
-    public boolean postPiece(@RequestBody Piece piece){
-        return pieceService.insertRoom(piece) > 0;
+    public Piece postPiece(@RequestBody Piece piece){
+        return pieceService.insertRoom(piece);
     }
 
     //PUT---------------------------------------------------------------------------------------------------------------
