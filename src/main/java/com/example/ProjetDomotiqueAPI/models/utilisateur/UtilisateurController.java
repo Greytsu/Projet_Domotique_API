@@ -38,9 +38,14 @@ public class UtilisateurController {
     }
 
     //POST--------------------------------------------------------------------------------------------------------------
-
     @PostMapping
     public boolean insertUser(@RequestBody Utilisateur user){
         return utilisateurService.createUser(user) > 0;
+    }
+
+    //PUT---------------------------------------------------------------------------------------------------------------
+    @PutMapping
+    public boolean updateUser(@RequestBody Utilisateur user){
+        return utilisateurService.updateUser(user) > 0;
     }
 }

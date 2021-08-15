@@ -116,15 +116,14 @@ public class UtilisateurRepository {
         String updateUserPrep =
             """
                 update Utilisateur
-                set U_Login = ?, U_Password = ?, (select TU_ID from TypeUtilisateur where TU_Nom = ?)
+                set U_Login = ?, TU_ID = (select TU_ID from TypeUtilisateur where TU_Nom = ?)
                 where U_ID = ?""";
 
         try {
             PreparedStatement ps = sqlCon.getCon().prepareStatement(updateUserPrep);
             ps.setString(1, user.getU_Login());
-            ps.setString(2, user.getU_Password());
-            ps.setString(3, user.getTU_Nom());
-            ps.setInt(4, user.getU_ID());
+            ps.setString(2, user.getTU_Nom());
+            ps.setInt(3, user.getU_ID());
 
             return this.sqlCon.ExecPreparedDataManip(ps);
 

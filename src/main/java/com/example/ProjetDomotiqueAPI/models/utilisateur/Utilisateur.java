@@ -43,6 +43,13 @@ public class Utilisateur {
         setRole();
     }
 
+    public Utilisateur(Integer u_ID, String u_Login, String TU_Nom) {
+        U_ID = u_ID;
+        U_Login = u_Login;
+        this.TU_Nom = TU_Nom;
+        setRole();
+    }
+
     //Methods-----------------------------------------------------------------------------------------------------------
     public void setDefaultUserType(){
         setTU_Nom("USER");

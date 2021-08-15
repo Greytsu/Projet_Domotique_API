@@ -37,4 +37,19 @@ public class UtilisateurService {
         return utilisateurRepository.insertUser(user);
     }
 
+    public int updateUser(Utilisateur user){
+
+        String Login = user.getU_Login();
+        var optUser = findUserByUsername(Login);
+
+        if(optUser.isPresent()){
+            if(optUser.get().getU_ID() == user.getU_ID()){
+                return utilisateurRepository.updateUser(user);
+            }
+        }
+
+        return 0;
+
+    }
+
 }
