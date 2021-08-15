@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan({ "com.example.ProjetDomotiqueAPI.*" })
-//@ComponentScan({ "com.example.ProjetDomotiqueAPI" })
+
 public class ProjetDomotiqueApiApplication {
 
 	public static void main(String[] args) {

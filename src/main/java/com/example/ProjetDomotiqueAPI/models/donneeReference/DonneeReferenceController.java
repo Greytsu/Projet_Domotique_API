@@ -1,5 +1,6 @@
 package com.example.ProjetDomotiqueAPI.models.donneeReference;
 
+import com.example.ProjetDomotiqueAPI.MQTT.SimpleMqttClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +39,19 @@ public class DonneeReferenceController {
     //POST--------------------------------------------------------------------------------------------------------------
     @PostMapping
     public boolean newReference(@RequestBody DonneeReference donneeReference){
+        boolean success;
+
         if(donneeReference.isValid())
             deleteReference(donneeReference.getTD_ID(), donneeReference.getPI_ID());
-        return donneeReferenceService.insertReference(donneeReference) > 0;
+        success = donneeReferenceService.insertReference(donneeReference) > 0;
+
+        if(success){
+            SimpleMqttClient mqttClient = new SimpleMqttClient();
+            mqttClient.connectBroker();
+            mqttClient.publishMqttMessage("DomotiqueMaison/config/input", "ask config", 0);
+        }
+
+        return success;
     }
 
     @DeleteMapping
