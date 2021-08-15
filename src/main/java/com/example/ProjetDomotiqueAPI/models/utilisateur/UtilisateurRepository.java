@@ -28,7 +28,7 @@ public class UtilisateurRepository {
     public List<Utilisateur> findAll(){
         String queryUsers =
             """
-                select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID = Utilisateur.TU_ID) as TU_Nom 
+                select U_ID, U_Nom, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID = Utilisateur.TU_ID) as TU_Nom 
                 from Utilisateur""";
         List<Utilisateur> utilisateurs = new ArrayList<>();
 
@@ -39,11 +39,12 @@ public class UtilisateurRepository {
                 if(results.isBeforeFirst()){
                     while(results.next()){
                         int U_ID = results.getInt("U_ID");
+                        String U_Nom = results.getString("U_Nom");
                         String TU_Nom = results.getString("TU_Nom");
                         String U_Login = results.getString("U_Login");
                         String U_Password = results.getString("U_Password");
 
-                        utilisateurs.add(new Utilisateur(U_ID, U_Login, U_Password, TU_Nom));
+                        utilisateurs.add(new Utilisateur(U_ID, U_Nom, U_Login, U_Password, TU_Nom));
                     }
                 }
             }
@@ -58,7 +59,7 @@ public class UtilisateurRepository {
 
         String queryUser =
             """ 
-                select U_ID, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID =  Utilisateur.TU_ID) as TU_Nom
+                select U_ID, U_Nom, U_Login, U_Password, (select TU_Nom from TypeUtilisateur where TU_ID =  Utilisateur.TU_ID) as TU_Nom
                 from Utilisateur
                 where U_Login = ?""";
 
@@ -72,11 +73,12 @@ public class UtilisateurRepository {
                 if(results.isBeforeFirst()){
                     results.next();
                     int U_ID = results.getInt("U_ID");
+                    String U_Nom = results.getString("U_Nom");
                     String TU_Nom = results.getString("TU_Nom");
                     String U_Login = results.getString("U_Login");
                     String U_Password = results.getString("U_Password");
 
-                    return Optional.of(new Utilisateur(U_ID, U_Login, U_Password, TU_Nom));
+                    return Optional.of(new Utilisateur(U_ID, U_Nom, U_Login, U_Password, TU_Nom));
                 }
             }
         } catch (SQLException throwables) {
@@ -90,14 +92,15 @@ public class UtilisateurRepository {
         String insertUserPrep =
             """
                 insert into Utilisateur
-                (U_Login, U_Password, TU_ID)
-                values (?, ?, (select TU_ID from TypeUtilisateur where TU_Nom = ?))""";
+                (U_Nom, U_Login, U_Password, TU_ID)
+                values (?, ?, ?, (select TU_ID from TypeUtilisateur where TU_Nom = ?))""";
 
         try {
             PreparedStatement ps = sqlCon.getCon().prepareStatement(insertUserPrep);
-            ps.setString(1, user.getU_Login());
-            ps.setString(2, passwordEncoder.encode(user.getU_Password()));
-            ps.setString(3, user.getTU_Nom());
+            ps.setString(1, user.getU_Nom());
+            ps.setString(2, user.getU_Login());
+            ps.setString(3, passwordEncoder.encode(user.getU_Password()));
+            ps.setString(4, user.getTU_Nom());
 
             System.out.println(ps);
 
@@ -116,14 +119,15 @@ public class UtilisateurRepository {
         String updateUserPrep =
             """
                 update Utilisateur
-                set U_Login = ?, TU_ID = (select TU_ID from TypeUtilisateur where TU_Nom = ?)
+                set U_Nom = ?, U_Login = ?, TU_ID = (select TU_ID from TypeUtilisateur where TU_Nom = ?)
                 where U_ID = ?""";
 
         try {
             PreparedStatement ps = sqlCon.getCon().prepareStatement(updateUserPrep);
-            ps.setString(1, user.getU_Login());
-            ps.setString(2, user.getTU_Nom());
-            ps.setInt(3, user.getU_ID());
+            ps.setString(1, user.getU_Nom());
+            ps.setString(2, user.getU_Login());
+            ps.setString(3, user.getTU_Nom());
+            ps.setInt(4, user.getU_ID());
 
             return this.sqlCon.ExecPreparedDataManip(ps);
 

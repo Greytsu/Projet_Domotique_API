@@ -31,9 +31,9 @@ public class UtilisateurController {
     @GetMapping(path = "sample")
     public List<Utilisateur> getUsersSample(){
         return List.of(
-                new Utilisateur(1, "Olivier", "password", "Super Admin"),
-                new Utilisateur(2, "Alain", "password", "Admin"),
-                new Utilisateur(3, "Lucas", "password", "User")
+                new Utilisateur(1, "Olivier", "Olivier@gmail.com", "password", "Super Admin"),
+                new Utilisateur(2, "Alain", "Alain@gmail.com", "password", "Admin"),
+                new Utilisateur(3, "Lucas", "Lucas@gmail.com", "password", "User")
         );
     }
 

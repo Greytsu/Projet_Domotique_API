@@ -101,12 +101,10 @@ public class DonneeRepository {
                 ResultSet results = optResults.get();
                 if(results.isBeforeFirst()){
                     while(results.next()){
-
                         float DO_Valeur = results.getFloat("DO_Valeur");
                         int TD_ID = results.getInt("TD_ID");
                         Timestamp DO_Creation = results.getTimestamp("DO_Creation");
 
-                        System.out.println("add");
                         donnees.add(new Donnee(DO_Valeur, TD_ID, PI_ID, DO_Creation));
                     }
                 }

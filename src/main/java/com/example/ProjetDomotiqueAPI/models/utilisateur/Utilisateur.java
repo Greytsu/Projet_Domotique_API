@@ -19,6 +19,7 @@ public class Utilisateur {
 
     @Id
     private Integer U_ID;
+    private String U_Nom;
     private String U_Login;
     private String U_Password;
     private String TU_Nom;
@@ -28,24 +29,26 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
-    public Utilisateur(String U_Login, String U_Password, String TU_Nom, List<Autorisation> autorisations) {
+    public Utilisateur(String U_Nom, String U_Login, String U_Password, String TU_Nom, List<Autorisation> autorisations) {
+        this.U_Nom = U_Nom;
         this.U_Login = U_Login;
         this.U_Password = U_Password;
         this.TU_Nom = TU_Nom;
         setRole();
     }
 
-    public Utilisateur(int u_ID, String u_Login, String u_Password, String TU_Nom) {
-        U_ID = u_ID;
-        U_Login = u_Login;
-        U_Password = u_Password;
+    public Utilisateur(int u_ID, String U_Nom, String u_Login, String u_Password, String TU_Nom) {
+        this.U_ID = u_ID;
+        this.U_Nom = U_Nom;
+        this.U_Login = u_Login;
+        this.U_Password = u_Password;
         this.TU_Nom = TU_Nom;
         setRole();
     }
 
     public Utilisateur(Integer u_ID, String u_Login, String TU_Nom) {
-        U_ID = u_ID;
-        U_Login = u_Login;
+        this.U_ID = u_ID;
+        this.U_Login = u_Login;
         this.TU_Nom = TU_Nom;
         setRole();
     }
@@ -59,6 +62,11 @@ public class Utilisateur {
     @JsonProperty("id")
     public int getU_ID() {
         return U_ID;
+    }
+
+    @JsonProperty("name")
+    public String getU_Nom() {
+        return U_Nom;
     }
 
     @JsonProperty("login")
@@ -91,6 +99,11 @@ public class Utilisateur {
     @JsonProperty("id")
     public void setU_ID(Integer u_ID) {
         U_ID = u_ID;
+    }
+
+    @JsonProperty("name")
+    public void setU_Nom(String u_Nom) {
+        U_Nom = u_Nom;
     }
 
     @JsonProperty("login")
