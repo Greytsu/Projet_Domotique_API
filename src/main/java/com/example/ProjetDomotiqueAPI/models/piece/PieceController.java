@@ -1,20 +1,26 @@
 package com.example.ProjetDomotiqueAPI.models.piece;
 
+import com.example.ProjetDomotiqueAPI.dto.PieceResponse;
+import com.example.ProjetDomotiqueAPI.models.doneee.DonneeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "ProjetDomotique/api/v1/piece")
 public class PieceController {
 
+
     private final PieceService pieceService;
 
+    private final DonneeService donneeService;
+
     @Autowired
-    public PieceController(PieceService pieceService) {
+    public PieceController(PieceService pieceService, DonneeService donneeService) {
         this.pieceService = pieceService;
+        this.donneeService = donneeService;
     }
 
     //GET---------------------------------------------------------------------------------------------------------------
@@ -24,8 +30,14 @@ public class PieceController {
     }
 
     @GetMapping(path = "{PI_ID}")
-    public Optional<Piece> getRoomById(@PathVariable("PI_ID") int PI_ID){
-        return pieceService.findRoomById(PI_ID);
+    public ResponseEntity<?> getRoomById(@PathVariable("PI_ID") int PI_ID){
+
+        var optPiece = pieceService.findRoomById(PI_ID);
+        if (optPiece.isEmpty())
+            return null;
+
+        return ResponseEntity.ok(new PieceResponse(optPiece.get(), donneeService.getLastDatas(PI_ID)));
+
     }
 
     @GetMapping(path = "sample")
