@@ -1,9 +1,14 @@
 package com.example.ProjetDomotiqueAPI.database;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.Optional;
 
+@Component
 public class MySqlConnection {
+
     private static Connection con;
     private String url;
     private String user;
@@ -19,9 +24,9 @@ public class MySqlConnection {
     }
 
     public MySqlConnection() {
-        this.url = "jdbc:mysql://192.168.1.80:3306/Projet_Domotique?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        this.user = "distantAdmin";
-        this.password = "olivier";
+        this.url = "jdbc:mysql://localhost:3306/Projet_Domotique?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        this.user = "ProjetDomotique_API";
+        this.password = "7DPh9pVa6PtVvjxLr4E7";
 
         connect();
     }

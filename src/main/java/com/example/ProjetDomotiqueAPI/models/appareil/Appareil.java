@@ -2,15 +2,7 @@ package com.example.ProjetDomotiqueAPI.models.appareil;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table
 public class Appareil {
-
-    @Id
 
     private int AP_ID;
     private String AP_NOM;

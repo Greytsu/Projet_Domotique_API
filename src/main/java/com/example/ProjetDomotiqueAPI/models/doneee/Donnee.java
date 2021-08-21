@@ -2,16 +2,10 @@ package com.example.ProjetDomotiqueAPI.models.doneee;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.sql.Timestamp;
 
-@Entity
-@Table
 public class Donnee {
 
-    @Id
     private int DO_ID;
     private float DO_Valeur;
     private int AP_ID;

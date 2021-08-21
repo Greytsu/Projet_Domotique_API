@@ -1,21 +1,13 @@
 package com.example.ProjetDomotiqueAPI.models.piece;
 
-import com.example.ProjetDomotiqueAPI.models.doneee.DonneeService;
 import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReference;
 import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReferenceRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.List;
 
-@Entity
-@Table
 public class Piece {
 
-    @Id
     private int PI_ID;
     private String PI_Nom;
     private int TP_ID;

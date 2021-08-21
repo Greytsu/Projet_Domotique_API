@@ -6,18 +6,12 @@ import com.example.ProjetDomotiqueAPI.security.ApplicationUserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.List;
 
 import static com.example.ProjetDomotiqueAPI.security.ApplicationUserRole.*;
 
-@Entity
-@Table
 public class Utilisateur {
 
-    @Id
     private Integer U_ID;
     private String U_Nom;
     private String U_Login;
@@ -74,6 +68,7 @@ public class Utilisateur {
         return U_Login;
     }
 
+    @JsonIgnore
     @JsonProperty("password")
     public String getU_Password() {
         return U_Password;

@@ -3,15 +3,8 @@ package com.example.ProjetDomotiqueAPI.models.donneeReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table
 public class DonneeReference {
 
-    @Id
     private int DR_ID;
     private float DR_Valeur;
     private int PI_ID;

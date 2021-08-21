@@ -2,15 +2,8 @@ package com.example.ProjetDomotiqueAPI.models.autorisation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table
 public class Autorisation {
 
-    @Id
     private int AU_ID;
     private int PI_ID;
     private String PI_Nom;

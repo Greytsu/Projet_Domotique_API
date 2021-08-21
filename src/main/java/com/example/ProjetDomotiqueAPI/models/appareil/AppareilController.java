@@ -16,13 +16,12 @@ public class AppareilController {
         this.appareilService = appareilService;
     }
 
+    //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping
     public List<Appareil> getDevices(){
         return appareilService.findAllDevices();
     }
 
-
-    //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping(path = "{AP_ID}")
     public List<Appareil> getDeviceById(@PathVariable("AP_ID") int AP_ID){
         var optDevice = appareilService.findDeviceByID(AP_ID);
