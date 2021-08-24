@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,8 +26,16 @@ public class PieceController {
 
     //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping
-    public List<Piece> getAllRooms(){
-        return pieceService.findAllRooms();
+    public ResponseEntity<?> getAllRooms(){
+
+        List<Piece> pieces = pieceService.findAllRooms();
+        List<PieceResponse> response = new ArrayList<>();
+
+        for (Piece piece : pieces) {
+            response.add(new PieceResponse(piece, donneeService.getLastDatas(piece.getPI_ID())));
+        }
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "{PI_ID}")

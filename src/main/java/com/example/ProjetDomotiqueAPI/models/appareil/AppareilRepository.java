@@ -24,7 +24,7 @@ public class AppareilRepository {
         String queryDevices =
             """
                 select AP_ID, AP_Nom, PI_ID, AP_MAC
-                from appareil""";
+                from Appareil""";
         List<Appareil> appareils = new ArrayList<>();
 
         try{
@@ -54,7 +54,7 @@ public class AppareilRepository {
         String queryDevice =
             """ 
                 select AP_ID, AP_Nom, PI_ID, AP_MAC
-                from appareil
+                from Appareil
                 where AP_ID = ?""";
 
         try {
