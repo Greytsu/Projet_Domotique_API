@@ -2,6 +2,7 @@ package com.example.ProjetDomotiqueAPI.models.piece;
 
 import com.example.ProjetDomotiqueAPI.dto.PieceResponse;
 import com.example.ProjetDomotiqueAPI.models.doneee.DonneeService;
+import com.example.ProjetDomotiqueAPI.models.donneeReference.DonneeReferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,13 @@ public class PieceController {
 
     private final DonneeService donneeService;
 
+    private final DonneeReferenceService donneeReferenceService;
+
     @Autowired
-    public PieceController(PieceService pieceService, DonneeService donneeService) {
+    public PieceController(PieceService pieceService, DonneeService donneeService, DonneeReferenceService donneeReferenceService) {
         this.pieceService = pieceService;
         this.donneeService = donneeService;
+        this.donneeReferenceService = donneeReferenceService;
     }
 
     //GET---------------------------------------------------------------------------------------------------------------
@@ -32,7 +36,7 @@ public class PieceController {
         List<PieceResponse> response = new ArrayList<>();
 
         for (Piece piece : pieces) {
-            response.add(new PieceResponse(piece, donneeService.getLastDatas(piece.getPI_ID())));
+            response.add(new PieceResponse(piece, donneeService.getLastDatas(piece.getPI_ID()), donneeReferenceService.findReferencesByRoomId(piece.getPI_ID())));
         }
 
         return ResponseEntity.ok(response);
@@ -45,7 +49,8 @@ public class PieceController {
         if (optPiece.isEmpty())
             return null;
 
-        return ResponseEntity.ok(new PieceResponse(optPiece.get(), donneeService.getLastDatas(PI_ID)));
+        Piece piece = optPiece.get();
+        return ResponseEntity.ok(new PieceResponse(piece, donneeService.getLastDatas(PI_ID), donneeReferenceService.findReferencesByRoomId(piece.getPI_ID())));
 
     }
 
