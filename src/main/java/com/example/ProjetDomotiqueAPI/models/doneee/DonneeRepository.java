@@ -109,12 +109,12 @@ public class DonneeRepository {
 
         List<Donnee> donnees = new ArrayList<>();
         String queryLastDatas =
-            """
-                                        
-                select round(avg(DO_Valeur),2) as DO_Valeur, TD_ID, DO_Creation, PI_ID
+            """                    
+                select avg(DO_Valeur) as DO_Valeur, TD_ID, DO_Creation, PI_ID
                 from Donnee
+                where DO_Creation>= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
                 group by TD_ID
-                having DO_Creation > SUBTIME(CURRENT_TIMESTAMP(), "120") and PI_ID = ?""";
+                having PI_ID = ?""";
 
         try {
             PreparedStatement ps = sqlCon.getCon().prepareStatement(queryLastDatas);
