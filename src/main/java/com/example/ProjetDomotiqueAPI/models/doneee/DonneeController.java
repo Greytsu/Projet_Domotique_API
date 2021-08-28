@@ -22,10 +22,16 @@ public class DonneeController {
     //GET---------------------------------------------------------------------------------------------------------------
     @GetMapping
     public List<Donnee> getDonnees(@RequestParam(defaultValue = "0", name = "after") String after,
+                                   @RequestParam(defaultValue = "0", name = "before") String before,
+                                   @RequestParam(defaultValue = "", name = "value_type") String value_type,
                                    @RequestParam(defaultValue = "", name = "devices") List<String> deviceIds,
-                                   @RequestParam(defaultValue = "", name = "rooms") List<String> roomIds){
+                                   @RequestParam(defaultValue = "", name = "rooms") List<String> roomIds,
+                                   @RequestParam(defaultValue = "", name = "order") String order){
+        
+        if(!after.equals("0") && !before.equals("0"))
+            return null;
 
-        return donneeService.getDonneesAfter(after, deviceIds, roomIds);
+        return donneeService.getDonneesAfter(after, before, value_type, deviceIds, roomIds, order);
     }
 
     @GetMapping(path = "last_datas")

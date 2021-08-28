@@ -20,41 +20,65 @@ public class DonneeRepository {
         this.sqlCon = new MySqlConnection();
     }
 
-    public List<Donnee> getDonneesAfter(String after, List<String> deviceIds, List<String> roomIds){
+    public List<Donnee> getDonneesAfter(String after, String before, String value_type, List<String> deviceIds, List<String> roomIds, String order){
 
         String queryDonnees;
         List<Donnee> donnees = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
+        int countParam = 1;
 
         sb.append("""
                     select DO_ID, DO_Valeur, AP_ID, TD_ID, PI_ID, DO_Creation
                     from Donnee
-                    where DO_ID > ?""");
+                    """);
+
+        if(!after.equals("0") || (after.equals("0") && before.equals("0")))
+            sb.append("where DO_ID > ?");
+        if(!before.equals("0"))
+            sb.append("where DO_ID < ?");
+
+        if(!value_type.isEmpty())
+            sb.append(" and TD_ID = ?");
         if(deviceIds.size() > 0)
             sb.append(" and AP_ID in (?)");
         if(roomIds.size() > 0)
             sb.append(" and PI_ID in (?)");
-        sb.append(" LIMIT 250");
+
+        sb.append(System.getProperty("line.separator"));
+        if(order.equals("ASC"))
+            sb.append("order by DO_ID asc");
+        if(order.equals("DESC"))
+            sb.append("order by DO_ID desc");
+
+        sb.append(System.getProperty("line.separator"));
+        sb.append("LIMIT 250");
 
         queryDonnees = sb.toString();
 
         try {
             PreparedStatement ps = sqlCon.getCon().prepareStatement(queryDonnees);
-            ps.setInt(1, Integer.parseInt(after));
+
+
+            if(!after.equals("0") || (after.equals("0") && before.equals("0")))
+                ps.setInt(1, Integer.parseInt(after));
+            if(!before.equals("0"))
+                ps.setInt(1, Integer.parseInt(before));
+
+            if(!value_type.isEmpty()){
+                countParam ++;
+                ps.setString(countParam, value_type);
+            }
 
             if(deviceIds.size() > 0){
+                countParam ++;
                 String result = deviceIds.stream().collect(Collectors.joining(","));
-                ps.setString(2, result);
+                ps.setString(countParam, result);
             }
 
             if(roomIds.size() > 0){
+                countParam ++;
                 String result = roomIds.stream().collect(Collectors.joining(","));
-                if(deviceIds.size() > 0){
-                    ps.setString(3,result);
-                }else{
-                    ps.setString(2,result);
-                }
-
+                ps.setString(countParam,result);
             }
 
             var optResults = this.sqlCon.ExecPreparedQuery(ps);

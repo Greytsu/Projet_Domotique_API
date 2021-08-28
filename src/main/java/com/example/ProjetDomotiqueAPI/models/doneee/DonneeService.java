@@ -15,8 +15,8 @@ public class DonneeService {
         this.donneeRepository = donneeRepository;
     }
 
-    public List<Donnee> getDonneesAfter(String after, List<String> deviceIds, List<String> roomIds){
-        return donneeRepository.getDonneesAfter(after, deviceIds, roomIds);
+    public List<Donnee> getDonneesAfter(String after, String before, String value_type, List<String> deviceIds, List<String> roomIds, String order){
+        return donneeRepository.getDonneesAfter(after, before, value_type, deviceIds, roomIds, order);
     }
 
     public List<Donnee> getLastDatas(int PI_ID){
