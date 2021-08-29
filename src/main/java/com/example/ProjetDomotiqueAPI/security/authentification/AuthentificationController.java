@@ -1,5 +1,7 @@
 package com.example.ProjetDomotiqueAPI.security.authentification;
 
+import com.example.ProjetDomotiqueAPI.models.connexion.Connexion;
+import com.example.ProjetDomotiqueAPI.models.connexion.ConnexionService;
 import com.example.ProjetDomotiqueAPI.models.utilisateur.UtilisateurService;
 import com.example.ProjetDomotiqueAPI.security.MyUserDetailsService;
 import com.example.ProjetDomotiqueAPI.util.JwtUtil;
@@ -27,14 +29,20 @@ public class AuthentificationController {
     @Autowired
     private UtilisateurService utilisateurService;
 
+    @Autowired
+    private ConnexionService connexionService;
+
 
     @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthentificationReq authenticationRequest) throws Exception{
 
         try {
+            //Essaie de s'authentifier avec les credentials reçus
             authManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getLogin(), authenticationRequest.getPassword()));
+            System.out.println("in");
         }
         catch (BadCredentialsException e) {
+            //TODO:create and use an Error DTO
             throw new Exception("Incorrect username or password", e);
         }
 
@@ -42,7 +50,11 @@ public class AuthentificationController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
+        //Generate token
         final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        //insert dans la bdd une nouvelle connexion
+        connexionService.insertConnexion(new Connexion(username, jwt));
 
         return ResponseEntity.ok(new AuthentificationRep(jwt, utilisateurService.findUserByUsername(username).orElse(null)));
     }

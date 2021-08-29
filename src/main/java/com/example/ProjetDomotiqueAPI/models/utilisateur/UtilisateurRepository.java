@@ -102,8 +102,6 @@ public class UtilisateurRepository {
             ps.setString(3, passwordEncoder.encode(user.getU_Password()));
             ps.setString(4, user.getTU_Nom());
 
-            System.out.println(ps);
-
             return this.sqlCon.ExecPreparedDataManip(ps);
 
         } catch (SQLException throwables) {
