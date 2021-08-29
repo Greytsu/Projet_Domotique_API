@@ -8,13 +8,9 @@ public class SimpleMqttClient implements MqttCallback {
     MqttConnectOptions connOpt;
 
     static final String BROKER_URL = "tcp://localhost:1883";
-    static final String MQTT_CLIENT_ID = "Projet Domotique - API";
+    static final String MQTT_CLIENT_ID = "PD_API";
     static final String MQTT_USERNAME = "olivier";
     static final String MQTT_PASSWORD = "olivier";
-
-    // the following two flags control whether this example is a publisher, a subscriber or both
-    static final Boolean subscriber = true;
-    static final Boolean publisher = false;
 
     //This callback is invoked upon losing the MQTT connection.
     @Override
@@ -73,22 +69,9 @@ public class SimpleMqttClient implements MqttCallback {
         }
     }
 
-    public void subscribe(String topic, int subQoS){
-        try {
-            myClient.subscribe(topic, subQoS);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void shutdownClient(){
         // disconnect
         try {
-            // wait to ensure subscribed messages are delivered
-            if (subscriber) {
-                Thread.sleep(5000);
-            }
             myClient.disconnect();
         } catch (Exception e) {
             e.printStackTrace();

@@ -39,16 +39,18 @@ public class DonneeReferenceController {
     //POST--------------------------------------------------------------------------------------------------------------
     @PostMapping
     public boolean newReference(@RequestBody DonneeReference donneeReference){
-        boolean success;
+        boolean success = false;
 
-        if(donneeReference.isValid())
+        if(donneeReference.isValid()){
             deleteReference(donneeReference.getTD_ID(), donneeReference.getPI_ID());
-        success = donneeReferenceService.insertReference(donneeReference) > 0;
+            success = donneeReferenceService.insertReference(donneeReference) > 0;
+        }
 
         if(success){
             SimpleMqttClient mqttClient = new SimpleMqttClient();
             mqttClient.connectBroker();
             mqttClient.publishMqttMessage("DomotiqueMaison/config/input", "ask config", 0);
+            mqttClient.shutdownClient();
         }
 
         return success;
