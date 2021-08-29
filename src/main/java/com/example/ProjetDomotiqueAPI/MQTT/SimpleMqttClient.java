@@ -7,7 +7,7 @@ public class SimpleMqttClient implements MqttCallback {
     MqttClient myClient;
     MqttConnectOptions connOpt;
 
-    static final String BROKER_URL = "tcp://192.168.1.80:1883";
+    static final String BROKER_URL = "tcp://localhost:1883";
     static final String MQTT_CLIENT_ID = "Projet Domotique - API";
     static final String MQTT_USERNAME = "olivier";
     static final String MQTT_PASSWORD = "olivier";
