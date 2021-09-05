@@ -60,8 +60,8 @@ public class AuthentificationController {
     }
 
     @GetMapping
-    public String HelloRessource(){
-        return "Hello World !!";
+    public Boolean testToken(){
+        return true;
     }
 
 }

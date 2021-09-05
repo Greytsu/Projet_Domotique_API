@@ -43,12 +43,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/ProjetDomotique/api/v1/authentification/**").permitAll()
+                //.antMatchers("/ProjetDomotique/api/v1/authentification/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/ProjetDomotique/api/v1/authentification/**").hasAnyAuthority(PIECE_READ.getPermissions())
+                .antMatchers(HttpMethod.POST, "/ProjetDomotique/api/v1/authentification/**").permitAll()
 
                 //utilisateur
                 //.antMatchers("/ProjetDomotique/api/v1/admin/**").hasAnyRole(SUPER_ADMIN.name(),ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
-                //.antMatchers(HttpMethod.POST, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
                 .antMatchers(HttpMethod.POST, "/ProjetDomotique/api/v1/admin/utilisateur/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
                 .antMatchers(HttpMethod.DELETE, "/ProjetDomotique/api/v1/admin/utilisateur/**").hasAnyAuthority(UTILISATEUR_WRITE.getPermissions())
