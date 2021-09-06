@@ -46,16 +46,20 @@ public class DonneeReferenceController {
             success = donneeReferenceService.insertReference(donneeReference) > 0;
         }
 
-        if(success){
-            SimpleMqttClient mqttClient = new SimpleMqttClient();
-            mqttClient.connectBroker();
-            mqttClient.publishMqttMessage("DomotiqueMaison/config/input", "config", 0);
-            mqttClient.shutdownClient();
-        }
-
         return success;
     }
 
+    @PostMapping(path = "config")
+    public boolean configEsp(){
+        SimpleMqttClient mqttClient = new SimpleMqttClient();
+        mqttClient.connectBroker();
+        mqttClient.publishMqttMessage("DomotiqueMaison/config/input", "config", 0);
+        mqttClient.shutdownClient();
+
+        return true;
+    }
+
+    //DELETE------------------------------------------------------------------------------------------------------------
     @DeleteMapping
     public boolean deleteReference(@RequestParam(defaultValue = "0", name = "type") int TD_ID,
                                    @RequestParam(defaultValue = "0", name = "room") int PI_ID){
