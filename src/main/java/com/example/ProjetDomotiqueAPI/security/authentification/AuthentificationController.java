@@ -39,7 +39,6 @@ public class AuthentificationController {
         try {
             //Essaie de s'authentifier avec les credentials reçus
             authManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getLogin(), authenticationRequest.getPassword()));
-            System.out.println("in");
         }
         catch (BadCredentialsException e) {
             //TODO:create and use an Error DTO

@@ -49,7 +49,7 @@ public class DonneeReferenceController {
         if(success){
             SimpleMqttClient mqttClient = new SimpleMqttClient();
             mqttClient.connectBroker();
-            mqttClient.publishMqttMessage("DomotiqueMaison/config/input", "ask config", 0);
+            mqttClient.publishMqttMessage("DomotiqueMaison/config/input", "config", 0);
             mqttClient.shutdownClient();
         }
 

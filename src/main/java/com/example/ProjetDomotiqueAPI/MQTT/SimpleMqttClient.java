@@ -43,7 +43,7 @@ public class SimpleMqttClient implements MqttCallback {
         try {
             // publish message to broker
             token = mqttTopic.publish(mqttMessage);
-            token.waitForCompletion();
+            //token.waitForCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         }
